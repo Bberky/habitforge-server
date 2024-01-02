@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,16 +30,18 @@ public class UserHabit implements DomainEntity<Long> {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private HabitGoalInterval goalInterval;
 
     @Positive(message = "Goal threshold must be positive.")
+    @NotNull
     private Double goalThreshold;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JsonIgnore
     private User user;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JsonIgnore
     private Habit habit;
 
@@ -47,6 +50,7 @@ public class UserHabit implements DomainEntity<Long> {
     private Collection<HabitEntry> entries;
 
     @JsonProperty("userId")
+    @NotNull
     private Long getUserId() {
         if (user == null)
             return null;
@@ -62,6 +66,7 @@ public class UserHabit implements DomainEntity<Long> {
     }
 
     @JsonProperty("habitId")
+    @NotNull
     private Long getHabitId() {
         if (habit == null)
             return null;
