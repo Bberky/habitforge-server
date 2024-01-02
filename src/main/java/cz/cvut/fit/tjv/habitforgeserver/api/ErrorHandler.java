@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import cz.cvut.fit.tjv.habitforgeserver.service.EntityAlreadyExistsException;
 import cz.cvut.fit.tjv.habitforgeserver.service.EntityNotFoundException;
+import cz.cvut.fit.tjv.habitforgeserver.service.ReferencedEntityDoesNotExistException;
 import io.swagger.v3.oas.annotations.Hidden;
 
 @RestControllerAdvice
@@ -43,5 +44,10 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(EntityAlreadyExistsException.class)
     public void handleEntityALreadyExistsException(EntityAlreadyExistsException e) {
+    }
+
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ExceptionHandler(ReferencedEntityDoesNotExistException.class)
+    public void handleReferencedEntityDoesNotExistException(ReferencedEntityDoesNotExistException e) {
     }
 }
