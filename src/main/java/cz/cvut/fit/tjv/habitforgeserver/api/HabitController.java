@@ -8,7 +8,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +23,7 @@ import cz.cvut.fit.tjv.habitforgeserver.service.HabitService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -32,6 +35,24 @@ public class HabitController extends CrudController<Habit, Long> {
     @Override
     protected CrudService<Habit, Long> getService() {
         return habitService;
+    }
+
+    @Override
+    @ApiResponses({
+            @ApiResponse(responseCode = "422", content = @Content)
+    })
+    @PostMapping
+    public Habit create(@Valid @RequestBody Habit entity) {
+        return super.create(entity);
+    }
+
+    @Override
+    @ApiResponses({
+            @ApiResponse(responseCode = "422", content = @Content)
+    })
+    @PutMapping("/{id}")
+    public Habit update(@PathVariable Long id, @Valid @RequestBody Habit entity) {
+        return super.update(id, entity);
     }
 
     @GetMapping("/{id}/author")
