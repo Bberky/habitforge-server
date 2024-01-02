@@ -1,7 +1,6 @@
 package cz.cvut.fit.tjv.habitforgeserver.service;
 
 import java.util.Collection;
-import java.util.Set;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.core.userdetails.UserDetails;
