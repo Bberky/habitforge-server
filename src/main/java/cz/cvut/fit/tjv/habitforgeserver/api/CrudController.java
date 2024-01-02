@@ -3,7 +3,6 @@ package cz.cvut.fit.tjv.habitforgeserver.api;
 import java.util.Collection;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +25,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @SecurityRequirement(name = "basicAuth")
 @CrossOrigin
+@ApiResponses({
+        @ApiResponse(responseCode = "401", content = @Content)
+})
 public abstract class CrudController<D extends DomainEntity<ID>, ID> {
     protected abstract CrudService<D, ID> getService();
 
@@ -40,6 +42,9 @@ public abstract class CrudController<D extends DomainEntity<ID>, ID> {
     }
 
     @GetMapping
+    @ApiResponses({
+            @ApiResponse(responseCode = "200")
+    })
     public Collection<D> readAll() {
         return getService().readAll();
     }
@@ -64,8 +69,8 @@ public abstract class CrudController<D extends DomainEntity<ID>, ID> {
             @ApiResponse(responseCode = "400", content = @Content),
             @ApiResponse(responseCode = "404", content = @Content)
     })
-    public ResponseEntity<D> update(@PathVariable ID id, @RequestBody D entity) {
-        return ResponseEntity.ok(getService().update(id, entity));
+    public D update(@PathVariable ID id, @RequestBody D entity) {
+        return getService().update(id, entity);
     }
 
     @DeleteMapping("/{id}")
