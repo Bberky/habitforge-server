@@ -18,6 +18,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,7 @@ public class User implements DomainEntity<Long>, UserDetails {
 
     @Column(nullable = false, unique = true)
     @Email(message = "Email must be a valid email address.")
+    @NotNull
     private String email;
 
     @Column(nullable = false)
