@@ -11,4 +11,6 @@ public interface UserHabitService extends CrudService<UserHabit, Long> {
     HabitEntry addHabitEntry(Long userHabitId, HabitEntry habitEntry);
 
     Collection<HabitEntry> getHabitEntries(Long userHabitId);
+
+    boolean containsEntry(Long userHabitId, Long habitEntryId);
 }

@@ -31,9 +31,18 @@ public class UserHabitServiceImpl extends CrudServiceImpl<UserHabit, Long> imple
     public UserHabit create(UserHabit entity) {
         if (!habitRepository.existsById(entity.getHabit().getId()) ||
                 !userRepository.existsById(entity.getUser().getId()))
-            throw new EntityNotFoundException();
+            throw new ReferencedEntityDoesNotExistException();
 
         return super.create(entity);
+    }
+
+    @Override
+    public UserHabit update(Long id, UserHabit entity) {
+        if (!habitRepository.existsById(entity.getHabit().getId()) ||
+                !userRepository.existsById(entity.getUser().getId()))
+            throw new ReferencedEntityDoesNotExistException();
+
+        return super.update(id, entity);
     }
 
     public Double getHabitCompletion(Long userHabitId) {
@@ -85,5 +94,15 @@ public class UserHabitServiceImpl extends CrudServiceImpl<UserHabit, Long> imple
             throw new EntityNotFoundException();
 
         return userHabit.get().getEntries();
+    }
+
+    @Override
+    public boolean containsEntry(Long userHabitId, Long habitEntryId) {
+        var userHabit = readById(userHabitId);
+
+        if (userHabit.isEmpty())
+            throw new EntityNotFoundException();
+
+        return userHabit.get().getEntries().stream().anyMatch(e -> e.getId().equals(habitEntryId));
     }
 }

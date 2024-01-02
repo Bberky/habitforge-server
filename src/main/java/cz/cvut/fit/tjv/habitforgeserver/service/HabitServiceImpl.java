@@ -30,9 +30,18 @@ public class HabitServiceImpl extends CrudServiceImpl<Habit, Long> implements Ha
     public Habit create(Habit entity) {
         if (entity.getAuthor() != null &&
                 !userRepository.existsById(entity.getAuthor().getId()))
-            throw new EntityNotFoundException();
+            throw new ReferencedEntityDoesNotExistException();
 
         return super.create(entity);
+    }
+
+    @Override
+    public Habit update(Long id, Habit entity) {
+        if (entity.getAuthor() != null &&
+                !userRepository.existsById(entity.getAuthor().getId()))
+            throw new ReferencedEntityDoesNotExistException();
+
+        return super.update(id, entity);
     }
 
     @Override
