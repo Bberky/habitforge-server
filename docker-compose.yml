@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: habitforge
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./habitforge-data:/var/lib/postgresql/data
+  api:
+    build: .
+    depends_on:
+      - db
+    environment:
+      "spring.datasource.url": "jdbc:postgresql://db:5432/habitforge"
+      "spring.datasource.username": "postgres"
+      "spring.datasource.password": "postgres"
+    ports:
+      - "8080:8080"
