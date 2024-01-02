@@ -13,13 +13,16 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.PreRemove;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Tag implements DomainEntity<Long> {
     @Id
     @GeneratedValue
@@ -33,6 +36,7 @@ public class Tag implements DomainEntity<Long> {
     @Column(nullable = false)
     @PositiveOrZero(message = "Color must be a 24-bit number.")
     @Max(value = 16777215, message = "Color must be a 24-bit number.")
+    @NotNull
     private Integer color;
 
     @ManyToMany(mappedBy = "tags")
