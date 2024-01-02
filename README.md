@@ -18,7 +18,4 @@ vytvorí záznam v tabuľke habit, z pohľadu užívateľa to bude však iba jed
 
 ## Komplexný dotaz (mimo CRUD)
 
-Keďže sa habity budú dať filtrovať podľa tagov (jedného alebo viacerých), tak bude existovat funkcia
-ktorá bude prijímať zoznam názvov tagov (tag.name) a vráti zoznam habitov na základe týchto tagov.
-Ďalej si užívateľ bude môcť svoje záznamy k habitom zoraďovať buď podľa dátumu, alebo hodnoty.
-Nakoniec si užívateľ bude vedieť zobraziť pre daný habit súčasné plnenie cieľu, aký mu nastavil.
+Užívateľ si bude vedieť zobraziť pre daný habit súčasné plnenie cieľu, aký mu nastavil.
