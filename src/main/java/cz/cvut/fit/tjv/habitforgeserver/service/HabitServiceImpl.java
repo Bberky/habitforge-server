@@ -70,6 +70,9 @@ public class HabitServiceImpl extends CrudServiceImpl<Habit, Long> implements Ha
         if (habit.get().getTags().contains(tag.get()))
             throw new EntityAlreadyExistsException();
 
+        tag.get().getHabits().add(habit.get());
+        tagRepository.save(tag.get());
+
         habit.get().getTags().add(tag.get());
         habitRepository.save(habit.get());
     }
@@ -81,6 +84,9 @@ public class HabitServiceImpl extends CrudServiceImpl<Habit, Long> implements Ha
 
         if (habit.isEmpty() || tag.isEmpty() || !habit.get().getTags().contains(tag.get()))
             throw new EntityNotFoundException();
+
+        tag.get().getHabits().remove(habit.get());
+        tagRepository.save(tag.get());
 
         habit.get().getTags().remove(tag.get());
         habitRepository.save(habit.get());
