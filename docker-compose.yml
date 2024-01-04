@@ -7,6 +7,11 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: habitforge
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
     ports:
       - "5432:5432"
     volumes:
@@ -14,7 +19,9 @@ services:
   api:
     build: .
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    restart: on-failure
     environment:
       "spring.datasource.url": "jdbc:postgresql://db:5432/habitforge"
       "spring.datasource.username": "postgres"
