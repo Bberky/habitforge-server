@@ -12,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PreRemove;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,7 +36,12 @@ public class HabitEntry implements DomainEntity<Long> {
     @Positive(message = "Entry value must be positive.")
     private Double value;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JsonIgnore
     private UserHabit userHabit;
+
+    @PreRemove
+    private void preRemove() {
+        userHabit.getEntries().remove(this);
+    }
 }
