@@ -19,3 +19,14 @@ vytvorí záznam v tabuľke habit, z pohľadu užívateľa to bude však iba jed
 ## Komplexný dotaz (mimo CRUD)
 
 Užívateľ si bude vedieť zobraziť pre daný habit súčasné plnenie cieľu, aký mu nastavil.
+
+## Spustenie aplikácie
+
+Aplikácia beží na porte 8080 a API je dostupné na adrese: http://localhost:8080
+Dokumentácia je dostupná na adrese: http://localhost:8080/swagger-ui/index.html
+
+### Docker
+
+```bash
+$ docker compose up
+```
