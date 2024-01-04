@@ -99,10 +99,11 @@ public class UserHabitServiceImpl extends CrudServiceImpl<UserHabit, Long> imple
     @Override
     public boolean containsEntry(Long userHabitId, Long habitEntryId) {
         var userHabit = readById(userHabitId);
+        var habitEntry = habitEntryService.readById(habitEntryId);
 
-        if (userHabit.isEmpty())
+        if (userHabit.isEmpty() || habitEntry.isEmpty())
             throw new EntityNotFoundException();
 
-        return userHabit.get().getEntries().stream().anyMatch(e -> e.getId().equals(habitEntryId));
+        return userHabit.get().getEntries().contains(habitEntry.get());
     }
 }
