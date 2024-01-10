@@ -1,0 +1,6 @@
+stages:
+  - "test"
+
+test_app:
+  stage: test
+  script: ./gradlew test
